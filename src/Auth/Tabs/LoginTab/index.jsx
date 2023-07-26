@@ -24,7 +24,7 @@ const LoginTab = ({ selected }) => {
     setName('Emay Walter');
     if (email !== '' && password !== '') {
       localStorage.setItem('login', JSON.stringify(true));
-      history(`${process.env.PUBLIC_URL}/dashboard/default`);
+      history(`${process.env.PUBLIC_URL}/dashboard`);
     }
   };
   const loginWithJwt = async(e) => {
@@ -35,7 +35,7 @@ const LoginTab = ({ selected }) => {
         setValue(man);
         setName('Emay Walter');
         localStorage.setItem('token', Jwt_token);
-        history( `${process.env.PUBLIC_URL}/dashboard/default`)
+        history( `${process.env.PUBLIC_URL}/dashboard`)
         return user;
       });
   };
