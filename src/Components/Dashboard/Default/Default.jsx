@@ -14,15 +14,15 @@ import { Container, Row } from "reactstrap";
 const Default = () => {
   return (
     <>
-      <Breadcrumbs mainTitle="Default" parent="Dashboard" title="Default" />
+      <Breadcrumbs mainTitle="Dashboard" parent="Apps" title="Default" />
       <Container fluid={true} className="dashboard-default">
         <Row>
           <Greetingcard />
           <Ravanuechart />
           <TotalUserCard />
-          <TotalEarning />
+          {/* <TotalEarning />
           <AppoimentCard />
-          <CountryCard />
+          <CountryCard /> */}
           <TotalGrowthCard />
           <RecentActivity />
           <ChatCard />

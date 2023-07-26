@@ -54,4 +54,5 @@ export const authRoutes = [
   { path: `${process.env.PUBLIC_URL}/error/error-page3`, Components: <ErrorPage3 /> },
   { path: `${process.env.PUBLIC_URL}/error/error-page4`, Components: <ErrorPage4 /> },
   { path: `${process.env.PUBLIC_URL}/error/error-page5`, Components: <ErrorPage5 /> },
+  { path: `${process.env.PUBLIC_URL}/*`, Components: <ErrorPage5 /> },
 ];

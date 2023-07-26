@@ -10,6 +10,7 @@ import { authRoutes } from "./AuthRoutes";
 import LayoutRoutes from "../Route/LayoutRoutes";
 import Signin from '../Auth/Signin';
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage4 from "../Components/Pages/ErrorPages/error-page4";
 
 // setup fake backend
 configureFakeBackend();
@@ -30,27 +31,52 @@ const Routers = () => {
   }, []);
 
   return (
-    <Auth0Provider domain={auth0.domain} clientId={auth0.clientId} redirectUri={auth0.redirectUri}>
+    <Auth0Provider
+      domain={auth0.domain}
+      clientId={auth0.clientId}
+      redirectUri={auth0.redirectUri}
+    >
       <BrowserRouter basename={"/"}>
         <>
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path={"/"} element={<PrivateRoute />}>
-                { authenticated || jwt_token ? (
+                {authenticated || jwt_token ? (
                   <>
-                    <Route exact path={`${process.env.PUBLIC_URL}`} element={<Navigate to={`${process.env.PUBLIC_URL}/dashboard/default`} />} />
-                    <Route exact path={`/`} element={<Navigate to={`${process.env.PUBLIC_URL}/dashboard/default`} />} />
+                    <Route
+                      exact
+                      path={`${process.env.PUBLIC_URL}`}
+                      element={
+                        <Navigate
+                          to={`${process.env.PUBLIC_URL}/dashboard`}
+                        />
+                      }
+                    />
+                    <Route
+                      exact
+                      path={`/`}
+                      element={
+                        <Navigate to={`${process.env.PUBLIC_URL}/dashboard`} />
+                      }
+                    />
                   </>
                 ) : (
                   ""
                 )}
                 <Route path={`/*`} element={<LayoutRoutes />} />
               </Route>
-              <Route path={`${process.env.PUBLIC_URL}/callback`} render={() => <Callback />} />
-                <Route exact path={`${process.env.PUBLIC_URL}/login`} element={<Signin />} />
-                {authRoutes.map(({ path, Components }, i) => (
-                  <Route path={path} element={Components} key={i} />
-                ))}
+              <Route
+                path={`${process.env.PUBLIC_URL}/callback`}
+                render={() => <Callback />}
+              />
+              <Route
+                exact
+                path={`${process.env.PUBLIC_URL}/login`}
+                element={<Signin />}
+              />
+              {authRoutes.map(({ path, Components }, i) => (
+                <Route path={path} element={Components} key={i} />
+              ))}
             </Routes>
           </Suspense>
         </>

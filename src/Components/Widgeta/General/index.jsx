@@ -19,25 +19,25 @@ import ReportsCard from "./ReportsCard";
 const General = () => {
   return (
     <>
-      <Breadcrumbs mainTitle="General" parent="Widgets" title="General" />
+      <Breadcrumbs mainTitle="Statistics" parent="Apps" title="Statistics" />
       <div>
         <Container fluid={true} className="general-widget">
           <Row>
             <ReportsCard />
             <Saledetails />
             <OrderDetail />
-            <MobileWidgets />
-            <Calender />
-            <CustomerFeedback />
-            <ManagerCard />
-            <RecentActivity />
-            <Intro />
-            <UserBrowser />
+            {/* <MobileWidgets /> */}
+            {/* <Calender /> */}
+            {/* <CustomerFeedback />
+            <ManagerCard /> */}
+            {/* <RecentActivity /> */}
+            {/* <Intro /> */}
+            {/* <UserBrowser />
             <FaceBook />
-            <ProductCards />
-            <EmployeeStatus />
+            <ProductCards /> */}
+            {/* <EmployeeStatus />
             <InfoCard />
-            <ContactUs />
+            <ContactUs /> */}
           </Row>
         </Container>
       </div>

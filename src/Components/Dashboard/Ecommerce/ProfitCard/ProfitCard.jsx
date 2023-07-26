@@ -11,7 +11,7 @@ const ProfitCard = () => {
         <TotalProfitCard />
         <VisitorCard />
         <TotalSold />
-        <OurTotalSold />
+        {/* <OurTotalSold /> */}
       </Row>
     </Col>
   );

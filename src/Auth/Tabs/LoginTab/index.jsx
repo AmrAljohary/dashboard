@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Jwt_token } from '../../../Config/Config';
 import man from '../../../assets/images/login/login_bg.jpg';
 import { handleResponse } from '../../../Services/fack.backend';
-import FormHeader from './FormHeader';
 import FormPassword from './FormPassword';
 const LoginTab = ({ selected }) => {
   const [email, setEmail] = useState('test@gmail.com');
@@ -64,8 +63,6 @@ const LoginTab = ({ selected }) => {
             <Btn attrBtn={{ color: 'primary', className: 'd-block w-100 mt-2', onClick: (e) => loginWithJwt(e) }}>{LoginWithJWT}</Btn>
           )}
         </div>
-        <div className="login-social-title"><H6>{OrSignInWith}</H6></div>
-        <FormHeader selected={selected} />
       </Form>
   );
 };
