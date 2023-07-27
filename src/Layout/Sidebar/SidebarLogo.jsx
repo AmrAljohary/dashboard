@@ -9,7 +9,7 @@ const SidebarLogo = () => {
 
   return (
 <>
-      <Link to={`${process.env.PUBLIC_URL}/dashboard/default`}>
+      <Link to={`${process.env.PUBLIC_URL}/dashboard`}>
       <Image attrImage={{ className: "img-fluid for-light", src: cubaimg, alt: "" }} />
       </Link>
       <div className="back-btn" onClick={() => setTogglSidebar(!togglSidebar)}>

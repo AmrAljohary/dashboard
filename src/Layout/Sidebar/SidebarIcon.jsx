@@ -11,7 +11,7 @@ const SidebarIcon = () => {
       <SidebarLogo sidebartoogle={sidebartoogle} setSidebartoogle={setSidebartoogle} />
       </div>
       <div className="logo-icon-wrapper">
-        <Link to={"/dashboard/default"} >
+        <Link to={"/dashboard"} >
           <div className="icon-box-sidebar">
             <Grid />
           </div>

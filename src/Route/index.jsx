@@ -12,22 +12,15 @@ import Signin from '../Auth/Signin';
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage4 from "../Components/Pages/ErrorPages/error-page4";
 
-// setup fake backend
-configureFakeBackend();
-const Routers = () => {
-  const [authenticated, setAuthenticated] = useState(localStorage.getItem("login"));
-  const jwt_token = localStorage.getItem("token");
 
+const Routers = () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const login = JSON.parse(localStorage.getItem("login"));
+  const isAuthenticated = login;
   useEffect(() => {
-    let abortController = new AbortController();
-    const requestOptions = { method: "GET", headers: authHeader() };
-    fetch("/users", requestOptions).then(handleResponse);
-    setAuthenticated(JSON.parse(localStorage.getItem("login")));
+    // Check if the user is authenticated based on the presence of access token in localStorage
     console.ignoredYellowBox = ["Warning: Each", "Warning: Failed"];
     console.disableYellowBox = true;
-    return () => {
-      abortController.abort();
-    };
   }, []);
 
   return (
@@ -41,15 +34,13 @@ const Routers = () => {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path={"/"} element={<PrivateRoute />}>
-                {authenticated || jwt_token ? (
+                {isAuthenticated || accessToken || login ? (
                   <>
                     <Route
                       exact
                       path={`${process.env.PUBLIC_URL}`}
                       element={
-                        <Navigate
-                          to={`${process.env.PUBLIC_URL}/dashboard`}
-                        />
+                        <Navigate to={`${process.env.PUBLIC_URL}/dashboard`} />
                       }
                     />
                     <Route

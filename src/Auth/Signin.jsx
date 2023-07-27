@@ -20,7 +20,7 @@ const LoginSample = () => {
                     <Col xs="12" className='px-0'>
                         <div className="login-card auth-login">
                             <div>
-                                <Link className="logo" to={`${process.env.PUBLIC_URL}/dashboard/default`}>
+                                <Link className="logo" to={`${process.env.PUBLIC_URL}/dashboard`}>
                                     <Image attrImage={{ src: `${imgg}`, alt: '' }} />
                                 </Link>
                             </div>

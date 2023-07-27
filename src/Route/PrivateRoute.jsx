@@ -1,25 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { authHeader, handleResponse } from "../Services/fack.backend";
+import React, { useState, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
+import api from "../Store/api";
+import { useDispatch } from "react-redux";
+import { clearUserData } from "../Store/reducers/auth";
 
 const PrivateRoute = () => {
-  const login = JSON.parse(localStorage.getItem("login"))
+  const accessToken = localStorage.getItem("accessToken");
+  const login = JSON.parse(localStorage.getItem("login"));
   const [authenticated, setAuthenticated] = useState(false);
-  const jwt_token = localStorage.getItem("token");
+  const [expTime, setExpTime] = useState(null);
+  const [alreadyNavigated, setAlreadyNavigated] = useState(false); // State to track navigation to login page
+  const navigate = useNavigate(); // Hook for programmatically navigating
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const requestOptions = { method: "GET", headers: authHeader() };
-    fetch("/users", requestOptions).then(handleResponse);
-    setAuthenticated(JSON.parse(localStorage.getItem("authenticated")));
+    const fetchTokenStatus = () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        axios
+          .get(`${api.defaults.baseURL}/admin/checkToken`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            setAuthenticated(true);
+            const { exp } = response.data;
+            setExpTime(exp * 1000); // Convert to milliseconds
+          })
+          .catch((error) => {
+            setAuthenticated(false);
+            // Clear data from local storage
+            localStorage.removeItem("profileURL");
+            localStorage.removeItem("UserName");
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("login");
+            // Clear data from Redux store (you may replace clearUserData with your actual action)
+            dispatch(clearUserData());
+            if (!alreadyNavigated) {
+              // Navigate to login page after a delay to allow time to delete items from localStorage
+              setTimeout(() => {
+                navigate(`${process.env.PUBLIC_URL}/login`, { replace: true });
+              }, 1000); // Adjust the delay as needed
+              setAlreadyNavigated(true);
+            }
+          });
+      } else {
+        setAuthenticated(false);
+      }
+    };
 
-    localStorage.setItem("authenticated", authenticated);
-    localStorage.setItem("login", login);
-  }, []);
-  return login || authenticated || jwt_token ? (
-    <Outlet />
-  ) : (
-    <Navigate exact to={`${process.env.PUBLIC_URL}/login`} />
-  );
+    // Fetch token status when the component mounts
+    fetchTokenStatus();
+
+    // Check token expiration every 1-2 seconds (you can adjust the interval as needed)
+    const interval = setInterval(fetchTokenStatus, 60 * 60 * 1000);
+
+    // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, [alreadyNavigated, dispatch, navigate]);
+
+  if (login || authenticated || accessToken) {
+    return <Outlet />;
+  } else {
+    navigate(`${process.env.PUBLIC_URL}/login`, {
+      replace: true,
+    });
+
+    return null; // Return null if you don't want to render anything for unauthenticated users
+  }
 };
 
 export default PrivateRoute;

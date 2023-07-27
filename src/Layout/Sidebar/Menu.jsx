@@ -962,14 +962,8 @@ export const SEARCHMENU = [
         class: "lan-3",
         menu: [
           {
-            title: "Default",
-            url: `${process.env.PUBLIC_URL}/dashboard/default`,
-            class: "lan-4",
-            type: "link",
-          },
-          {
             title: "Ecommerce",
-            url: `${process.env.PUBLIC_URL}/dashboard/ecommerce`,
+            url: `${process.env.PUBLIC_URL}/ecommerce/product`,
             type: "link",
             class: "lan-5",
           },
@@ -981,15 +975,10 @@ export const SEARCHMENU = [
         class: "lan-6",
         menu: [
           {
-            url: `${process.env.PUBLIC_URL}/widgets/general`,
+            url: `${process.env.PUBLIC_URL}/Statistics`,
             type: "link",
             title: "General",
             bookmark: true,
-          },
-          {
-            url: `${process.env.PUBLIC_URL}/widgets/chart`,
-            type: "link",
-            title: "Chart",
           },
         ],
       },
