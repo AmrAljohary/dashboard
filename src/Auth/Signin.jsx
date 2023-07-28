@@ -25,7 +25,7 @@ const LoginSample = () => {
                                 </Link>
                             </div>
                             <div className="login-main1 login-tab1 login-main">
-                                <NavAuth callbackNav={callbackNav} selected={selected} />
+                                {/* <NavAuth callbackNav={callbackNav} selected={selected} /> */}
                                 <TabContent activeTab={selected} className="content-login">
                                     <TabPane className="fade show" tabId={selected === 'simpleLogin' ? 'simpleLogin' : 'jwt'}>
                                         <LoginTab selected={selected} />
