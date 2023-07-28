@@ -22,7 +22,6 @@ const LoginTab = ({ selected }) => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.user);
   const history = useNavigate();
-<<<<<<< HEAD
   const handleLogin = async () => {
     try {
       // Dispatch the login action
@@ -45,36 +44,6 @@ const LoginTab = ({ selected }) => {
       history(`${process.env.PUBLIC_URL}/dashboard`);
     }
   }, [accessToken, user, history]);
-=======
-  const [value, setValue] = useState(localStorage.getItem('profileURL' || man));
-  const [name, setName] = useState(localStorage.getItem('Name'));
-  useEffect(() => {
-    localStorage.setItem('profileURL', man);
-    localStorage.setItem('Name', 'Emay Walter');
-  }, [value, name]);
-  const loginAuth = async (e) => {
-    e.preventDefault();
-    setValue(man);
-    setName('Emay Walter');
-    if (email !== '' && password !== '') {
-      localStorage.setItem('login', JSON.stringify(true));
-      history(`${process.env.PUBLIC_URL}/dashboard`);
-    }
-  };
-  const loginWithJwt = async(e) => {
-    const requestOptions = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { email, password },};
-    return fetch('/users/authenticate', requestOptions)
-      .then(handleResponse)
-      .then((user) => {
-        setValue(man);
-        setName('Emay Walter');
-        localStorage.setItem('token', Jwt_token);
-        history( `${process.env.PUBLIC_URL}/dashboard`)
-        return user;
-      });
-  };
-
->>>>>>> ecdf95539175a7733276dea59e4a70a7f8e0efff
   return (
     <Form className="theme-form">
       <H4>
