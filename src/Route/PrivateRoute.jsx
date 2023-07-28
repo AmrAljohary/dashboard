@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import api from "../Store/api";
 import { useDispatch } from "react-redux";
@@ -10,10 +10,9 @@ const PrivateRoute = () => {
   const login = JSON.parse(localStorage.getItem("login"));
   const [authenticated, setAuthenticated] = useState(false);
   const [expTime, setExpTime] = useState(null);
-  const [alreadyNavigated, setAlreadyNavigated] = useState(false); // State to track navigation to login page
-  const navigate = useNavigate(); // Hook for programmatically navigating
+  const [alreadyNavigated, setAlreadyNavigated] = useState(false); 
+  const navigate = useNavigate(); 
   const dispatch = useDispatch();
-
   useEffect(() => {
     const fetchTokenStatus = () => {
       const accessToken = localStorage.getItem("accessToken");
@@ -63,15 +62,11 @@ const PrivateRoute = () => {
     };
   }, [alreadyNavigated, dispatch, navigate]);
 
-  if (login || authenticated || accessToken) {
-    return <Outlet />;
-  } else {
-    navigate(`${process.env.PUBLIC_URL}/login`, {
-      replace: true,
-    });
-
-    return null; // Return null if you don't want to render anything for unauthenticated users
-  }
+  return login || authenticated || accessToken ? (
+    <Outlet />
+  ) : (
+    <Navigate exact to={`${process.env.PUBLIC_URL}/login`} />
+  );
 };
 
 export default PrivateRoute;
